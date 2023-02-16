@@ -16,6 +16,8 @@ no actual character.  This can be halfway into a tab or beyond the end
 of the line.  Useful for selecting a rectangle in Visual mode and
 editing a table.
 
+To summarize, `virtualedit` let you put cursor on anywhere.
+
 I use this to add a column of `|` as right bound. Suppose you have this unfinished table:
 ```
 1 | 🌸            | 🌸       | 
@@ -63,7 +65,7 @@ To edit inside cell in **insert mode**, it's a pain to keep the cell the same si
 Yank in visual block mode is quite simple, you visual select the range and yank it. Paste would work in block mode.
 
 - To extend the space in one cell
-Keep pasting the second column which counts from right to left.
+Keep pasting the second column counted from right to left.
 ```
 +-------+           ------          +-------------------+
 | one   |                           | one two three ?   |
@@ -83,17 +85,17 @@ I draw all the tables above using this trick.
 - To add more columns
 Still select the suitable range of the block and paste.
 ```
-+-------+        +-------+-------+-------+-------+-------+-------+
-| one   |        | one   | one   | one   | one   | one   | one   |
-+-------+        +-------+-------+-------+-------+-------+-------+
-| two   |        | two   | two   | two   | two   | two   | two   |
-+-------+        +-------+-------+-------+-------+-------+-------+
-| three |  =>    | three | three | three | three | three | three |
-+-------+        +-------+-------+-------+-------+-------+-------+
-| four  |        | four  | four  | four  | four  | four  | four  |
-+-------+        +-------+-------+-------+-------+-------+-------+
-| five  |        | five  | five  | five  | five  | five  | five  |
-+-------+        +-------+-------+-------+-------+-------+-------+
++-------+            -------+           +-------+-------+-------+-------+-------+-------+
+| one   |             one   |           | one   | one   | one   | one   | one   | one   |
++-------+            -------+           +-------+-------+-------+-------+-------+-------+
+| two   |             two   |           | two   | two   | two   | two   | two   | two   |
++-------+  select    -------+  paste    +-------+-------+-------+-------+-------+-------+
+| three |  ======>    three | ========> | three | three | three | three | three | three |
++-------+            -------+           +-------+-------+-------+-------+-------+-------+
+| four  |             four  |           | four  | four  | four  | four  | four  | four  |
++-------+            -------+           +-------+-------+-------+-------+-------+-------+
+| five  |             five  |           | five  | five  | five  | five  | five  | five  |
++-------+            -------+           +-------+-------+-------+-------+-------+-------+
 ```
 
 ## Tip 4: Replace Command
@@ -105,3 +107,47 @@ I sometimes use command to modify every line. For example to cleanup ill format 
 | ? |
 ```
 The command is `[auto range]s/.$//`
+
+## Tip 4: Shift Blocks
+Sometimes I plan the arrangement badly, and there is no space for more graphs:
+```
+       I want to
+       add between
+       here
+          |
+          ▼
++-------+    +-------+
+| one   |    | one   |
++-------+    +-------+
+| two   |    | two   |
++-------+    +-------+
+| three |    | three |
++-------+    +-------+
+| four  |    | four  |
++-------+    +-------+
+| five  |    | five  |
++-------+    +-------+
+
+```
+
+The tricks here is to shift a block to the right: `<C-V>` and select the whole block and `>>` to do the shifting.
+```
+
+               I want to
+               add between
+               here
+                  |
+                  ▼
++-------+                    +-------+
+| one   |                    | one   |
++-------+                    +-------+
+| two   |                    | two   |
++-------+                    +-------+
+| three | ================== | three |
++-------+                    +-------+
+| four  |                    | four  |
++-------+                    +-------+
+| five  |                    | five  |
++-------+                    +-------+
+
+```
